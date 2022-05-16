@@ -1,0 +1,261 @@
+@font-face {
+    font-family: "Arcade";
+    src: url("fonts/Retro.ttf");
+}
+@font-face {
+    font-family: "Type";
+    src: url("fonts/MinecraftTen-VGORe.ttf");
+}
+:root{
+    --bg-color:black;
+    --font-color:white;
+    --type-speed:4s;
+    --num-char:20;
+    --size: 12rem;
+    --speed:60s;
+    --delay:8s;
+    --diverge-distance:15rem;
+    --diverge-speed:2.5s;
+    --pacman-animation:paused;
+    --form-animation:paused;
+}
+body{
+    display:grid;
+    min-height: 100vh;
+    place-content: center;
+    overflow: hidden;
+    background-color: var(--bg-color);
+}
+.type{
+    user-select: none;
+    position: absolute;
+    color: var(--font-color);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: "Type";
+    letter-spacing: .15em;
+    text-align: center;
+    font-size: 2em;
+    animation: blinking 500ms 7s forwards;
+}
+.type h1{
+    position: relative;
+    padding-bottom: 1%;
+    width: max-content;
+}
+.type p{
+    animation: ascend 2s var(--type-speed) ease forwards ;
+    opacity: 0;
+}
+.type h1::before,.type h1::after{
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+}
+.type h1::before{
+    background: var(--bg-color);
+    animation: typing var(--type-speed) steps(var(--num-char)) 1s forwards;
+}
+.type h1::after{
+    width: 0.15em;
+    background: var(--font-color);
+    animation: 
+    typing var(--type-speed) steps(var(--num-char)) 1s forwards,
+    blinking 750ms steps(var(--num-char)) infinite;
+}
+.orbit{
+    opacity: 0;
+    transform: translateY(-20rem);
+    animation: descend var(--diverge-speed) var(--delay) ease forwards;
+}
+.center {
+    width: var(--size);
+    position: relative;
+}
+.center img {
+    position: absolute;
+    transition: opacity 500ms;
+    transform: translatey(1rem);
+    z-index: 1;
+    max-width: 100%;
+}
+.center img:not(:first-child):hover{
+    opacity: 0;
+}
+ul{
+    display: grid;
+    place-items: center;
+    height: var(--size);
+    width: auto;
+    border-radius: 50%;
+    list-style: none;
+    position: relative;
+    transform-origin: center;
+    animation: orbit var(--speed) var(--delay) linear infinite;
+    animation-play-state: var(--orbit-play-state);
+}
+ul:hover{
+    --orbit-play-state: paused;
+}
+li{
+    position: absolute;
+    width: 8rem;
+    border-radius: 50%;
+    aspect-ratio: 1/1;
+    display: grid;
+    place-items: center;
+    line-height: 1;
+}
+li > *{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    transition: opacity 500ms;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    animation:glue-icon var(--speed) var(--delay) linear infinite;
+    animation-play-state: var(--orbit-play-state);
+}
+li>a>p{  
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: grid;
+    place-items: center;
+    opacity: 0;
+    font-family: 'Arcade';
+    color: var(--font-color);
+}
+li:hover>a>p{
+    opacity: 1;
+}
+li:hover>img{
+    opacity: 0;
+}
+#pacman-orbit{
+    margin-top:-13rem;
+    pointer-events: none;
+    display: grid;
+    place-items: center;
+    height: var(--size);
+    width: var(--size);
+    border-radius: 50%;
+    opacity: 0;
+    animation: orbit 10s 1.2s linear forwards;
+    animation-play-state: var(--pacman-animation);
+}
+#pacman{
+    opacity: inherit;
+    position: absolute;
+    width: var(--size);
+    height: var(--size);
+    overflow: hidden;
+    animation: pacman-diverge 1s steps(3) forwards;
+    animation-play-state: var(--pacman-animation);
+}
+svg{
+    opacity: inherit;
+    width: var(--size);
+    height: var(--size);
+    display: block;
+}
+.pacman__sprite{animation: mouth .4s steps(1) infinite forwards;}
+form{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: #424756;
+    color: white;
+    font-family: "Arcade";
+    font-size: 1.5em;
+    font-weight: bold;
+    display: grid;
+    place-items: center;
+    opacity: 1;
+    animation: form-fade .5s forwards;
+    animation-play-state:var(--form-animation);
+}
+.req::after{
+    content: "*";
+    color: red;
+    font-size: small;
+}
+.submit{
+    background-color: #2E69FF;
+    color : white;
+    width: 100px;
+    height: 40px;
+    font-family: "Arcade";
+    margin-bottom: 1em;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+}
+
+li:nth-child(1){
+    opacity: 1;
+    background-color: orange;
+    animation: diverge-1 var(--diverge-speed) var(--delay) linear 1 forwards;
+}
+li:nth-child(2){
+    opacity: 1;
+    background-color: cyan;
+    animation: diverge-2 var(--diverge-speed) var(--delay) linear 1 forwards;
+}
+li:nth-child(3){
+    opacity: 1;
+    background-color: purple;
+    animation: diverge-3 var(--diverge-speed) var(--delay) linear 1 forwards;
+}
+li:nth-child(4){
+    opacity: 1;
+    background-color: lightgreen;
+    animation: diverge-4 var(--diverge-speed) var(--delay) linear 1 forwards;
+}
+@keyframes orbit {100% {transform: rotate(360deg);}}
+@keyframes glue-icon {100% {transform: rotate(-360deg);}}
+@keyframes descend {
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+@keyframes ascend {
+    0% {transform: translatey(20rem);}
+    100%{opacity: 1;}
+}
+@keyframes typing{100% {left: 100%;}}
+@keyframes blinking{to {opacity: 0;}}
+@keyframes diverge-1 {100%{transform: translateX(var(--diverge-distance));}}
+@keyframes diverge-2 {100%{transform: translateX(-15rem);}}
+@keyframes diverge-3 {100%{transform: translatey(var(--diverge-distance));}}
+@keyframes diverge-4 {100%{transform: translatey(-15rem);}}
+@keyframes pacman-diverge {100%{transform:translate(0%,120%);}}
+@keyframes mouth {
+    0% {
+      margin-top: 0;
+    }
+    25% {
+      margin-top: -12rem;
+    }
+    50% {
+      margin-top: -24rem;
+    }
+    75% {
+      margin-top: -12rem;
+    }
+    100% {
+      margin-top: 0;
+    }
+  }
+@keyframes form-fade{
+    0%{
+        transform: translateY(100%);
+        opacity: 1;
+    }
+}

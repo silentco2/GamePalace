@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>HomePage</title>
+<link rel="stylesheet" href="style.css">
+<script src="script.js" defer></script>
+</head>
+<body>
+<div class="type">
+    <h1>Welcome To Game Palace</h1>
+    <p>Where Perfction Is Not Fiction</p>
+</div>
+<div class="orbit">
+    <div class="center" onclick="activate_pacman()">
+        <img src="assets/email.png" alt="Contacat Us">
+        <img src="assets/game.png" alt="Game Palac">
+    </div>
+    <ul>
+        <li>
+            <img src="assets/2048.png" alt="">
+            <a href="2048/index.html" target="_blank"><p>2048</p></a>
+        </li>
+        <li>
+            <img src="assets/wordle.png" alt="">
+            <a href="wordle/index.html" target="_blank"><p>Wordle</p></a>
+        </li>
+        <li>
+            <img src="assets/xo.png" alt="">
+            <a href="XO/index.html" target="_blank"><p>Tic Tac Toe</p></a>
+        </li>
+        <li>
+            <img src="assets/flappy.png" alt="">
+            <a href="flappy/index.html" target="_blank"><p>Flappy Bird</p></a>
+        </li>
+    </ul>
+</div>
+<div id="pacman-orbit">
+    <div id="pacman">
+        <div class="pacman__sprite">
+                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 484 480">
+                    <image width="484" height="480" xlink:href="data:img/png;base64,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"/>
+                </svg>
+                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 483 478">
+                    <image width="483" height="478" xlink:href="data:img/png;base64,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"/>
+                </svg>
+                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 371 478">
+                    <image width="371" height="478" xlink:href="data:img/png;base64,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"/>
+                </svg>                    
+            </div>
+        </div>
+</div>
+        <form action="https://formsubmit.co/0cc75f46928eabb28757961da1b82ccb" method="post" enctype="multipart/form-data">
+            <label for="input">Nickname</label>
+            <br>
+            <input type="text" id="input" name="Nickname">
+            <br>
+            <label for="email" class="req">Email</label>
+            <br>
+            <input type="email" id="email" name="Email" required>
+            <br>
+            <label for="input" class="req">The Game's Name</label>
+            <br>
+            <input type="text" id="game-name" name="Game's Name" required>
+            <br>
+            <label for="textarea">Original Idea?</label>
+            <br>
+            <textarea id="textarea" name="idea" placeholder="Describe your Game: Premise, Rules, ETC" cols="40" rows="10"></textarea>
+            <br>
+            <div class="file-field">
+                    <span>Got a simple design for your idea?</span>
+                    <br>
+                    <input type="file" id="file" name="attachment" accept="image/png, image/jpeg">
+            </div>
+            <br>
+            <input type="submit" class="submit">
+            <input type="hidden" name="_autoresponse" value="Thank You for your Submission, We will contact You as soon as we could">
+        </form>
+</body>
+</html>
